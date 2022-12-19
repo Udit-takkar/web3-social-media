@@ -3,7 +3,11 @@ import { Alert, Button, Card, Stack, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { v4 as uuidv4 } from 'uuid'
 
-export default function CreatePost() {
+interface ICreatePost {
+  profileId?: string
+}
+
+export default function CreatePost({ profileId }: ICreatePost) {
   const { post, publicationId, loading, error } = usePost()
   const form = useForm({
     initialValues: {
@@ -21,7 +25,7 @@ export default function CreatePost() {
       attributes: [],
       tags: ['testing'],
       appId: 'testing-github',
-      profileId: '0x530a',
+      profileId: profileId ?? '0x530a',
     },
   })
 

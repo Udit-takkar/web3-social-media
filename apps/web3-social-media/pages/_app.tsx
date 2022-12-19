@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 import '../styles/globals.css'
+import Header from '../components/Header'
 
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.polygon, chain.polygonMumbai],
@@ -25,6 +26,11 @@ const wagmiClient = createClient({
   webSocketProvider,
 })
 
+const links = [
+  { link: '/posts', label: 'Posts', links: undefined },
+  { link: '/create-post', label: 'Create Post', links: undefined },
+]
+
 export default function App({ Component, pageProps }: AppProps) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light')
   const toggleColorScheme = (value?: ColorScheme) =>
@@ -36,6 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <WagmiConfig client={wagmiClient}>
           <RainbowKitProvider chains={chains}>
             <LensKitProvider>
+              <Header links={links} />
               <Component {...pageProps} />
             </LensKitProvider>
           </RainbowKitProvider>
