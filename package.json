@@ -1,0 +1,48 @@
+{
+  "name": "web3-social-media",
+  "version": "0.0.0",
+  "description": "Lens Protocol",
+  "main": "index.js",
+  "repository": "",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "generate": "graphql-codegen",
+    "predev": "yarn generate",
+    "prebuild": "yarn generate",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.13.5",
+    "@graphql-codegen/client-preset": "1.0.5",
+    "@graphql-codegen/typescript": "^2.7.3",
+    "@graphql-codegen/typescript-operations": "^2.5.3",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.3",
+    "@swc/core": "1.2.131",
+    "esbuild": "^0.15.10",
+    "fast-glob": "^3.2.12",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "tslib": "^2.4.0",
+    "turbo": "^1.6.2",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "graphql": "^16.6.0"
+  }
+}
