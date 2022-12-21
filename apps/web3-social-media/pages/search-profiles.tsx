@@ -8,98 +8,97 @@ import { Button, SearchInput } from '../LooseComponents';
 import Image from 'next/image'
 
 export default function Home() {
-    const [searchString, setSearchString] = useState('0x530a')
-    const { profile, loading, error } = useProfile(searchString)
-    const { follow, tx: FollowTx, loading: FollowLoading } = useFollow();
-    const { unfollow, tx: UnFollowTx, loading: UnfollowLoading } = useUnfollow();
+  const [searchString, setSearchString] = useState('0x530a')
+  const { profile, loading, error } = useProfile(searchString)
+  const { follow, tx: FollowTx, loading: FollowLoading } = useFollow();
+  const { unfollow, tx: UnFollowTx, loading: UnfollowLoading } = useUnfollow();
+  return (
+    <div>
+      <div className={searchContainerStyleWrapper}>
+        <div className={searchContainerStyle}>
+          <SearchInput
+            placeholder='Search'
+            // @ts-ignore
+            onChange={e => { setSearchString(e.target.value) }}
+            value={searchString}
+          />
+          <Button
+            buttonText="SEARCH PROFILES"
+          />
+        </div>
+        {
+          loading ?
+            (
+              <Image
+                src={myLoader}
+                alt="Picture of the author"
+                width={200}
 
-    return (
-        <div>
-            <div className={searchContainerStyleWrapper}>
-                <div className={searchContainerStyle}>
-                    <SearchInput
-                        placeholder='Search'
-                        // @ts-ignore
-                        onChange={e => { setSearchString(e.target.value) }}
-                        value={searchString}
-                    />
-                    <Button
-                        buttonText="SEARCH PROFILES"
-                    />
-                </div>
-                {
-                    loading ?
-                        (
-                            <Image
-                                src={myLoader}
-                                alt="Picture of the author"
-                                width={200}
-
-                            />
-                        ) :
-                        (
-                            <div className={containerStyle}>
-                                <div
-                                    className={css`
+              />
+            ) :
+            (
+              <div className={containerStyle}>
+                <div
+                  className={css`
                                     ${headerstyle};
                                     background-image: url(${profile.coverPicture?.original.url});
                                     background-color: white;
                                     `}
-                                >
-                                </div>
-                                <div className={columnWrapperStyle}>
-                                    <div>
-                                        <Image
-                                            alt={`Picture of the ${profile.name}`}
-                                            className={css`${profileimageStyle};`}
-                                            src={profile?.picture?.original?.url || ProfilePicture}
-                                        />
-                                        <h3 className={namestyle}>{profile.name}</h3>
-                                        <p className={handlestyle}>{profile.handle}</p>
-                                        <p className={bioStyle}>{profile.bio}</p>
-                                        <div>
-                                            {
-                                                FollowTx ? (
-                                                    <button
-                                                        onClick={() => unfollow(searchString)}
-                                                        className={buttonStyle}
-                                                    >{UnfollowLoading ? (<Image
-                                                        src={myLoader}
-                                                        alt="Picture of the author"
-                                                        width={50}
+                >
+                </div>
+                <div className={columnWrapperStyle}>
+                  <div>
+                    <Image
+                      alt={`Picture of the ${profile.name}`}
+                      className={css`${profileimageStyle};`}
+                      src={profile?.picture?.original?.url || ProfilePicture}
+                    />
+                    <h3 className={namestyle}>{profile.name}</h3>
+                    <p className={handlestyle}>{profile.handle}</p>
+                    <p className={bioStyle}>{profile.bio}</p>
+                    <div>
+                      {
+                        FollowTx ? (
+                          <button
+                            onClick={() => unfollow(searchString)}
+                            className={buttonStyle}
+                          >{UnfollowLoading ? (<Image
+                            src={myLoader}
+                            alt="Picture of the author"
+                            width={50}
 
-                                                    />) : "UnFollow"}</button>
-                                                ) : (
-                                                    <button
-                                                        onClick={() => follow(searchString)}
-                                                        className={buttonStyle}
-                                                        disabled={FollowLoading}
-                                                    >{FollowLoading ? (<Image
-                                                        src={myLoader}
-                                                        alt="Picture of the author"
-                                                        width={50}
+                          />) : "UnFollow"}</button>
+                        ) : (
+                          <button
+                            onClick={() => follow(searchString)}
+                            className={buttonStyle}
+                            disabled={FollowLoading}
+                          >{FollowLoading ? (<Image
+                            src={myLoader}
+                            alt="Picture of the author"
+                            width={50}
 
-                                                    />) : "Follow"}
-                                                    </button>
-                                                )
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className={rightColumnStyle}>
-                                        <h3 className={postHeaderStyle}>Posts</h3>
-                                        <div className={emptyPostContainerStyle}>
-                                            <p className={emptyPostTextStyle}>
-                                                <span className={emptyPostHandleStyle}>{profile.handle}</span> has not posted yet!
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                          />) : "Follow"}
+                          </button>
                         )
-                }
-            </div>
-        </div>
-    )
+                      }
+                    </div>
+                  </div>
+                  <div className={rightColumnStyle}>
+                    <h3 className={postHeaderStyle}>Posts</h3>
+                    <div className={emptyPostContainerStyle}>
+                      <p className={emptyPostTextStyle}>
+                        <span className={emptyPostHandleStyle}>{profile.handle}</span> has not posted yet!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+        }
+      </div>
+    </div>
+  )
 }
 
 
