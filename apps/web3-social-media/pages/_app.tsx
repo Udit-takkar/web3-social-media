@@ -10,7 +10,7 @@ import '../styles/globals.css'
 import Header from '../components/Header'
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.polygon, chain.polygonMumbai],
+  [chain.polygonMumbai],
   [publicProvider()]
 )
 
